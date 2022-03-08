@@ -39,11 +39,6 @@ const starts = async (zee = new WAConnection()) => {
     zee.logger.level = 'warn' 
     console.log(banner)
     console.log('\x1b[1;31m×\x1b[1;37m>', '[\x1b[1;32mシ︎\x1b[1;37m]', color('Hallo'), 'Kak', color(`${Miminnya}`))
-    console.log(color(`SCRIPT INI DI SUSUN OLEH`,'yellow'))
-    console.log(color(`• 𝙁𝙚𝙗𝙧𝙞𝙖𝙣𝙨𝙮𝙖𝙝`,'yellow'))
-    console.log(color(`Be Smart People`,'yellow'))   
-    console.log(color(`Quotes : ${gombal}`,'cyan'))
-    console.log(color('#Semangat Untuk Hari ini','yellow'))
  
     zee.version = [2, 2206, 9]
     zee.browserDescription = [ 'YannnBot', 'Safari', '3.5' ]
