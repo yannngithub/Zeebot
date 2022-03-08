@@ -61,7 +61,7 @@ let tamnel = fs.readFileSync('./media/zeebot.jpg')
 
 //»»»𝘖𝘱𝘵𝘪𝘰𝘯
 let p = '```'
-publik = true
+publik = false
 hit_today = [];
 let apikey = 'Deffbotz' //Kalo abis Daftar Atau Beli Di lolhuman.xyz
 
@@ -129,7 +129,7 @@ var time2 = moment().tz('Asia/Jakarta').format('HH:mm:ss')
         const wit = moment.tz('Asia/Jayapura').format("HH:mm:ss")
         const hour_now = moment().format('HH:mm:ss')
         const cmd = (type === 'conversation' && mek.message.conversation) ? mek.message.conversation : (type == 'imageMessage') && mek.message.imageMessage.caption ? mek.message.imageMessage.caption : (type == 'videoMessage') && mek.message.videoMessage.caption ? mek.message.videoMessage.caption : (type == 'extendedTextMessage') && mek.message.extendedTextMessage.text ? mek.message.extendedTextMessage.text : ''.slice(1).trim().split(/ +/).shift().toLowerCase()
-        const prefix = /^[z?Ａ繩?繞??Ｔ瞼簧??=|~!#$%^&.?/\\穢^z+@,;]/.test(cmd) ? cmd.match(/^[z?Ａ繩?繞??Ｔ瞼簧??=|~!#$%^&.?/\\穢^z+*,;]/gi) : '!'          	
+        const prefix = /^[.#!?/:]/.test(cmd) ? cmd.match(/^[.#!?/:]/gi) : '!'          	
 		body = (type === 'conversation' && mek.message.conversation.startsWith(prefix)) ? mek.message.conversation : (type == 'imageMessage') && mek.message[type].caption.startsWith(prefix) ? mek.message[type].caption : (type == 'videoMessage') && mek.message[type].caption.startsWith(prefix) ? mek.message[type].caption : (type == 'extendedTextMessage') && mek.message[type].text.startsWith(prefix) ? mek.message[type].text : (type == 'listResponseMessage') && mek.message[type].singleSelectReply.selectedRowId ? mek.message[type].singleSelectReply.selectedRowId : (type == 'buttonsResponseMessage') && mek.message[type].selectedButtonId ? mek.message[type].selectedButtonId : ''
 		budy = (type === 'conversation') ? mek.message.conversation : (type === 'extendedTextMessage') ? mek.message.extendedTextMessage.text : ''
 		bodi = (type === 'conversation') ? mek.message.conversation : (type === 'extendedTextMessage') ? mek.message.extendedTextMessage.text : ''
@@ -143,8 +143,8 @@ var time2 = moment().tz('Asia/Jakarta').format('HH:mm:ss')
 	    const botNumberss = zee.user.jid + '@c.us'
 	    const isGroup = from.endsWith('@g.us')
 	    const sender = isGroup ? mek.participant : mek.key.remoteJid
-	    const OwnerNumber = [`${ownerNumber}@s.whatsapp.net`, `6285849261085@s.whatsapp.net`]
-     	const isOwner = OwnerNumber.includes(sender)
+	    const OwnerNumber = ["62895401223315@s.whatsapp.net"]
+     	const isOwner = ownerNumber.includes(sender)
      	const totalchat = await zee.chats.all()
 	    const groupMetadata = isGroup ? await zee.groupMetadata(from) : ''
 	    const groupName = isGroup ? groupMetadata.subject : ''
@@ -171,8 +171,8 @@ var time2 = moment().tz('Asia/Jakarta').format('HH:mm:ss')
 			       only: {
 	    	        group: '```𝘒𝘩𝘶𝘴𝘶𝘴 𝘎𝘳𝘰𝘶𝘱 𝘉𝘳𝘰𝘰```',
 	    	        owner: 'Khusus Owner Slurr',
-	    	        admin: 'Khusus Admin...',
-	    	        bot: 'Bo5 Harus Admin Boss',
+	    	        admin: '```Maaf, perintah ini hanya dapat digunakan oleh admin grup```',
+	    	        bot: '```Maaf, perintah ini hanya dapat digunakan ketika bot sudah menjadi admin```',
                   }
 	        	}
 		const isUrl = (url) => {
@@ -194,7 +194,7 @@ var time2 = moment().tz('Asia/Jakarta').format('HH:mm:ss')
         const troli =  {key: { fromMe: false,remoteJid: "status@broadcast", participant: '0@s.whatsapp.net'}, message: {orderMessage: {itemCount: 2022, status: 200, thumbnail: tamnel, surface: 200, message: `𝗭𝗘𝗘𝗦𝗘𝗟𝗙𝗕𝗢𝗧`, orderTitle: 'LordPebri', sellerJid: '0@s.whatsapp.net'} } }    
 
 const katalog = (teks) => {
-             res = zee.prepareMessageFromContent(from,{ "orderMessage": { "itemCount": 999999999, "message": teks, "footerText": "©Zeebot", "jpegThumbnail": fs.readFileSync('./media/zeebot.jpg'), "surface": 'CATALOG' }}, {quoted:troli})
+             res = zee.prepareMessageFromContent(from,{ "orderMessage": { "itemCount": 999999999, "message": teks, "footerText": "©Zeebot", "jpegThumbnail": fs.readFileSync('./media/zeebot.jpg'), "surface": 'CATALOG' }})
              zee.relayWAMessage(res)
         }
         
@@ -299,7 +299,7 @@ const katalog = (teks) => {
         if(mime.split("/")[0] === "audio"){
         mime = Mimetype.mp4Audio
         }
-        zee.sendMessage(to, media, type, { quoted: troli, mimetype: mime, caption: text,contextInfo: {"mentionedJid": mids}})  
+        zee.sendMessage(to, media, type, { mimetype: mime, caption: text,contextInfo: {"mentionedJid": mids}})  
         fs.unlinkSync(filename)
         });
         }                                 
@@ -442,56 +442,49 @@ switch (command) {
     case 'help': case 'menu': case 'helep':
           pp = 'motivasi'
           res = await jagoKata(pp)
-          let hasil = `${res[0].isi}\n~${res[0].by}`
-          menu =`# Hallo ${pushname}
+          menu =`Hallo ${pushname}\n
 • BOT STATE 
 • Nama Owner : ${Miminnya}
 • Nama Bot : ${BotName}
 • Mode : ${publik ? 'Public' : 'Self'}
 • Runtime : ${runtime(process.uptime())}
 • Total Chat : ${totalchat.length}
-• Hit Today : ${hit_today.length} Hit
-• Total Hit : ${totalhit} Hit
-• Browser : ${zee.browserDescription[1]}
-• Server : ${zee.browserDescription[0]}
-• Version : ${zee.browserDescription[2]}
 • Handphone : ${zee.user.phone.device_manufacturer}
-• Speed : ${process.uptime()}
 • Versi Whatsapp : ${zee.user.phone.wa_version}`
         but = [
-          { buttonId: `!allmenu`, buttonText: { displayText: '</menu>' }, type: 1 },
-          { buttonId: `!owner`, buttonText: { displayText: '</owner>' }, type: 1 }
+          { buttonId: `!allmenu`, buttonText: { displayText: 'Menu' }, type: 1 },
+          { buttonId: `!owner`, buttonText: { displayText: 'Owner' }, type: 1 }
         ]
-        sendButLocation(from, monospace(menu), `${p}#Quotes Hari Ini!!${p}\n${p}${hasil}${p}\n${p}${wita} || ${tanggal()}${p}`, tamnel, but, {quoted: mek})
+        sendButLocation(from, monospace(menu), `\n\n${p}${wib} || ${tanggal()}${p}`, tamnel, but, {quoted: mek})
           break
     case 'sewa':
           tes =`isi Sendiri`
-          zee.sendMessage(from, tes, text, {quoted: troli})
+          zee.sendMessage(from, tes, text)
           break  
           
 //»»»𝘉𝘶𝘵𝘵𝘰𝘯 𝘉𝘢𝘮𝘩 
     case 'welcome':
-          pp = 'on or off?'
+          pp = 'ON or OFF?'
           but = [
            { buttonId: `!wel on`, buttonText: { displayText: 'ON️' }, type: 1 },
            { buttonId: `!wel off`, buttonText: { displayText: 'OFF' }, type: 1 }]
-          sendButton(from, pp, 'Welcome', but, troli)
+          sendButton(from, pp, 'Welcome', but)
           break          
     case 'antilink':
-          pp = 'on or off?'
+          pp = 'ON or OFF?'
           but = [
            { buttonId: `!anti on`, buttonText: { displayText: 'ON️' }, type: 1 },
            { buttonId: `!anti off`, buttonText: { displayText: 'OFF' }, type: 1 }]
-          sendButton(from, pp, 'Antilink', but, troli)
+          sendButton(from, pp, 'Antilink', but)
           break
     case 'group': case 'gc': case 'grup':     	 
 		  if (!isGroup) return reply(mess.only.group)
-		  if (!isOwner && !isGroupAdmins) return reply(mess.only.admin)  
+              if (!isOwner && !isGroupAdmins) return reply(mess.only.admin)
           menu = `Di Pilih Di Pilih!`
           but = [
            { buttonId: `${prefix}opengc`, buttonText: { displayText: 'OPEN️' }, type: 1 },
            { buttonId: `${prefix}closegc`, buttonText: { displayText: 'CLOSE' }, type: 1 }]
-          sendButton(from, menu, 'Created By Pebri', but, troli)
+          sendButton(from, menu, 'Group', but)
           break           
 
 //>>>WibuMenu
@@ -549,7 +542,7 @@ switch (command) {
           kant += monospace(`❒「  YtSearch  」\n• Judul : ${i.title}\n• Views : ${i.views}\n• Di Upload Pada : ${i.ago}\n• Durasi : ${i.timestamp}\n• Channel : ${i.author.name}\n• Link Video : ${i.url}\n\n\n`)
           }
           var akhir = kant.trim()
-          sendFileFromUrl(res.all[0].image, image, {quoted: troli, caption: akhir})
+          sendFileFromUrl(res.all[0].image, image, {caption: akhir})
           break  
           
 //»»»𝘛𝘰𝘰𝘭𝘴 𝘔𝘦𝘯𝘶          				
@@ -579,6 +572,7 @@ switch (command) {
               	
 //»»»𝘖𝘸𝘯𝘦𝘳 𝘔𝘦𝘯𝘶
 	case 'public':
+      case 'publik':
 	  	  if (!isOwner && !mek.key.fromMe) return reply(mess.only.owner)
 		  publik = true
 		  reply('Sukses mengubah mode self ke public')
@@ -600,20 +594,18 @@ switch (command) {
 	  	  break
     case 'runtime':
     case 'test':
-          if (!isOwner) return reply('Khusus Owner..')
           run = process.uptime() 
           teks = `${runtime(run)}`
           reply(teks)
           break  
 	case 'speed':
 	case 'ping':
-	      if (!isOwner) return reply('Khusus Owner..')
 	  	  const timestamp = speed();
 	  	  const latensi = speed() - timestamp
 		  exec(`neofetch --stdout`, (error, stdout, stderr) => {
 		  const child = stdout.toString('utf-8')
 	  	  const teks = child.replace(/Memory:/, "Ram:")
-	 	  const pingnya = `*${teks}Speed: ${latensi.toFixed(4)} Second*`
+	 	  const pingnya = `Ping: *${latensi.toFixed(4)} Second*`
 		  reply(pingnya)
 		  })
 		  break
@@ -720,14 +712,9 @@ switch (command) {
           fs.unlinkSync(media)
           })
           .on('end', () => {
-          _out = getRandom('.webp')
-          spawn('webpmux', ['-set','exif','./mediadata/data.exif', out, '-o', _out])
-          .on('exit', () => {
-          zee.sendMessage(from, fs.readFileSync(_out),'stickerMessage', { quoted: mek })
+          zee.sendMessage(from, fs.readFileSync(out),'stickerMessage', { quoted: mek })
           fs.unlinkSync(out)
-          fs.unlinkSync(_out)
           fs.unlinkSync(media)
-          })
           })
           .addOutputOptions([`-vcodec`,`libwebp`,`-vf`,`scale='min(320,iw)':min'(320,ih)':force_original_aspect_ratio=decrease,fps=15, pad=320:320:-1:-1:color=white@0.0, split [a][b]; [a] palettegen=reserve_transparent=on:transparency_color=ffffff [p]; [b][p] paletteuse`])
           .toFormat('webp')
@@ -1139,7 +1126,7 @@ switch (command) {
            break
      case 'anti':
 	  	   if (!isGroup) return reply(mess.only.group)
-		   if (!isGroupAdmins && !isOwner) return reply('Lu bkn admin')
+                 if (!isOwner && !isGroupAdmins) return reply(mess.only.admin)
 	       if (!isBotGroupAdmins) return reply('Bot Harus Admin')
 		   if (args.length < 1) return reply(`On untuk mengaktifkan & off untuk menonaktifkan`)
 		   if ((args[0]) === 'on') {
@@ -1205,9 +1192,8 @@ switch (command) {
 	       if (!isGroup) return reply(mess.only.bot)
 		   if (!isOwner && !isGroupAdmins) return reply(mess.only.admin)
 		   if (!isBotGroupAdmins) return reply(mess.only.bot)
-		   reply('Opps... Fitur Dalam Perbaikan Kak>_<')
-		   break
-	   /*    if (args.length < 1) return reply('Yang mau di add jin ya?')
+
+	            if (args.length < 1) return reply('Yang mau di add jin ya?')
 		   if (args[0].startsWith('08')) return reply('Gunakan kode negara mas')
 		   try {
 		   num = `${args[0].replace(/ /g, '')}@s.whatsapp.net`
@@ -1216,7 +1202,7 @@ switch (command) {
 	  	   console.log('Error :', e)
 	 	   reply('Gagal menambahkan target, mungkin karena di private')
 		   }
-		   break*/
+		   break
      case 'kick':
 		   if (!isGroup) return reply(mess.only.group)
 		   if (!isOwner && !isGroupAdmins) return reply(mess.only.admin)
@@ -1277,7 +1263,7 @@ switch (command) {
      case 'revoke': case 'risetgc': case 'resetlink':
      case 'revokegroup': case 'revokelink': {
            if (!isGroup) return reply(mess.only.group)
-           if (!isGroupAdmins)return reply(mess.only.admin)
+           if (!isOwner && !isGroupAdmins) return reply(mess.only.admin)
            if (!isBotGroupAdmins) return reply(mess.only.bot)
            var linkgc = await zee.revokeInvite(from)
            mentions(`Link Group Berhasil direset oleh admin @${sender.split('@')[0]}`, [sender], true)
@@ -1290,7 +1276,7 @@ switch (command) {
            break         	   
      case 'join':case 'joingc':
 		   if (args.length < 1) return reply(`link broo?*`)
-		   if (!mek.key.fromMe && !isOwner) return reply(mess.only.owner)
+		   if (!isOwner && !isGroupAdmins) return reply(mess.only.admin)
 		   if (!isUrl(args[0]) && !args[0].includes('https://chat.whatsapp.com/')) return reply('gkvalid..')
 	       reply('Tunggu Sebentar..')
 		   link = args[0].replace('https://chat.whatsapp.com/','')
@@ -1298,7 +1284,7 @@ switch (command) {
 		   expect200: true })
 		   reply('Berhasil Masuk Grup')
            break		
-     case 'delete': case 'del': case 'D':
+     case 'delete': case 'del': case 'd':
 	       if (!isGroup)return reply(mess.only.group)
 		   try {
 		   zee.deleteMessage(from, { id: mek.message.extendedTextMessage.contextInfo.stanzaId, remoteJid: from, fromMe: true })
@@ -1364,7 +1350,7 @@ switch (command) {
           reply('```[ ! ] Error Saat Mengirim Video```')})
           sendMediaURL(from, `${res.dl_link}`,'Nih Kack')
           break
-    case 'tiktokdl': case 'ttdl': case 'tiktokmp4': case 'tiktok':    	        	    
+    case 'tiktokdl': case 'ttdl': case 'tiktokmp4': case 'tiktok': case 't': case 'tt':       	    
  	      if (!isUrl(args[0]) && !args[0].includes('tiktok')) return reply(mess.Iv)
  	      if (!v) return reply('Link?')
  		  reply(mess.wait)
@@ -1373,8 +1359,7 @@ switch (command) {
           const { wm, nowm, audio } = result
           axios.get(`https://tinyurl.com/api-create.php?url=${nowm}`)
           .then(async (a) => {
-    	  me = `𝘕𝘦𝘩 𝘉𝘳𝘰𝘰✔︎`
-	      zee.sendMessage(from,{url:`${nowm}`},video,{mimetype:'video/mp4',quoted:mek,caption:me})
+	      zee.sendMessage(from,{url:`${nowm}`},video,{mimetype:'video/mp4',quoted:mek})
           })
 		  })
 		  break
@@ -1399,6 +1384,7 @@ switch (command) {
            });
            break;
      case "instagram":
+      case "ig":
            if (!isUrl(args[0]) && !args[0].includes("instagram.com"))
            return reply(mess.error.url);
            if (!v) return reply("Linknya?");
@@ -1430,7 +1416,7 @@ switch (command) {
           result = monospace(`❒「  MediaFire  」\n• Nama : ${res[0].nama}\n• Ukuran : ${res[0].size}\n• Link : ${res[0].link}`)
           but = [
            { buttonId: `!dwd`, buttonText: { displayText: 'DOWNLOAD️' }, type: 1 }]
-          sendButton(from, result, 'MediaFire Downloader', but, troli)
+          sendButton(from, result, 'MediaFire Downloader', but)
           break
           case 'dwd':
           sendFileFromUrl(res[0].link, document, {mimetype: res[0].mime, filename: res[0].nama, quoted: mek})
@@ -1547,6 +1533,22 @@ switch (command) {
           zee.sendMessage(from, gambar, image, { quoted: mek })
           })
           break
+case 'donasi':
+      donate = `*DONASI KAK BUAT BELI SERVER BOT NYA AGAR BISA AKTIF 24/7*\n
+*GOPAY*
+0895401223315\n
+*DANA*
+0895401223315\n
+*SHOPEEPAY*
+0895401223315\n
+*OVO*
+0895401223315\n
+*BANK? CUMA ADA BNI*\n
+SAWERIA KAK
+https://saweria.co/Alvianto17`
+                     qris = fs.readFileSync(`./media/qr.jpg`)
+                     zee.sendMessage(from, qris, image, {caption: donate, quoted: mek})
+                     break
 //++Menunya          
     case 'allmenu': case 'm2':
           let q = 0
@@ -1759,7 +1761,7 @@ ${q+=1}.term`)
           but = [
            { buttonId: `!owner`, buttonText: { displayText: 'ᴏᴡɴᴇʀ️' }, type: 1 },
            { buttonId: `!sewa`, buttonText: { displayText: 'sᴇᴡᴀ' }, type: 1 }]
-          sendButton(from, pp, 'Created By Pebri', but, troli)
+          sendButton(from, pp, 'Yannn', but)
           break         
           
          case 'owner':
@@ -1769,18 +1771,18 @@ ${q+=1}.term`)
          }
          vcard2 = 'BEGIN:VCARD\n'
          + 'VERSION:3.0\n'
-         + `FN:${Miminnya}\n`
-         + `ORG: Creator Bot ;\n`
-         + `TEL;type=CELL;type=VOICE;waid=${ownerNumber}:${ownerNumber}\n`
+         + `FN:Alvianto\n`
+         + `ORG:Yannn\n`
+         + `TEL;type=CELL;type=VOICE;waid=62895401223315:+62895401223315\n`
          + 'END:VCARD'.trim()
-         zee.sendMessage(from, {displayName: `Creator Bot`, vcard: vcard2}, contact, 
-         { quoted: troli, 
-         })
-         reply('*_Jangan Lupa Subscrib_*\nhttps://youtube.com/c/FEBZABOTZ')
+         zee.sendMessage(from, {displayName: `Alvianto Owner Bot`, vcard: vcard2}, contact)
          break
              
 		                         
    default:
+      if (budy == `Assalamualaikum`) {
+            reply(`Waalaikumsalam`)
+            }
           if (isSimi && bodi != undefined){
           res = await axios.get(`https://api-sv2.simsimi.net/v2/?text=${bodi}&lc=id`)
           pp = res.data.success
@@ -1789,12 +1791,12 @@ ${q+=1}.term`)
           if (isCmd) {      
           menu = monospace(`Maaf kak ${pushname}_<\nCommand ${command} Tidak tersedia di list menu!!\nMohon cek kembali list menu nya kak`)
           but = [{ buttonId: `!menu`, buttonText: { displayText: 'MENU' }, type: 1 }]
-          sendButton(from, menu, 'Created By Pebri', but, mek)
+          sendButton(from, menu, 'Yannn', but, mek)
           break
           }
               
           if (budy.startsWith('>')) {
-          console.log(color('[EVAL1]'), color(moment(mek.messageTimestamp * 1000).format('DD/MM/YY HH:mm:ss'), 'yellow'), color(`eval return`))
+          console.log(color('[EVAL1]'), color(moment(mek.messageTimestamp * 1000).format('HH:mm:ss DD/MM/YYYY'), 'yellow'), color(`eval return`))
 	      try {
 	      let evaled = await eval(budy.slice(2))
 		  if (typeof evaled !== 'string') evaled = require('util').inspect(evaled)
@@ -1803,7 +1805,7 @@ ${q+=1}.term`)
 	      reply(`${err}`)
 		  }
 		  } else if (budy.startsWith('x')) {
-console.log(color('[EVAL2]'), color(moment(mek.messageTimestamp * 1000).format('DD/MM/YY HH:mm:ss'), 'yellow'), color(`eval identy`))
+console.log(color('[EVAL2]'), color(moment(mek.messageTimestamp * 1000).format('HH:mm:ss DD/MM/YYYY'), 'yellow'), color(`eval identy`))
 		  try {
 	 	  return zee.sendMessage(from, JSON.stringify(eval(budy.slice(2)), null, '\t'), text, { quoted: mek })
 	      } catch (err) {
