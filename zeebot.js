@@ -452,8 +452,8 @@ switch (command) {
 • Handphone : ${zee.user.phone.device_manufacturer}
 • Versi Whatsapp : ${zee.user.phone.wa_version}`
         but = [
-          { buttonId: `!allmenu`, buttonText: { displayText: 'Menu' }, type: 1 },
-          { buttonId: `!owner`, buttonText: { displayText: 'Owner' }, type: 1 }
+          { buttonId: `!allmenu`, buttonText: { displayText: 'MENU' }, type: 1 },
+          { buttonId: `!owner`, buttonText: { displayText: 'OWNER' }, type: 1 }
         ]
         sendButLocation(from, monospace(menu), `\n\n${p}${wib} || ${tanggal()}${p}`, tamnel, but, {quoted: mek})
           break
@@ -482,8 +482,8 @@ switch (command) {
               if (!isOwner && !isGroupAdmins) return reply(mess.only.admin)
           menu = `Di Pilih Di Pilih!`
           but = [
-           { buttonId: `${prefix}opengc`, buttonText: { displayText: 'OPEN️' }, type: 1 },
-           { buttonId: `${prefix}closegc`, buttonText: { displayText: 'CLOSE' }, type: 1 }]
+         { buttonId: `${prefix}closegc`, buttonText: { displayText: 'CLOSE' }, type: 1 },
+           { buttonId: `${prefix}opengc`, buttonText: { displayText: 'OPEN️' }, type: 1 }]
           sendButton(from, menu, 'Group', but)
           break           
 
@@ -1759,8 +1759,8 @@ ${q+=1}.freefire text
  ❏「 EVAL 」
 ${q+=1}.term`)        
           but = [
-           { buttonId: `!owner`, buttonText: { displayText: 'ᴏᴡɴᴇʀ️' }, type: 1 },
-           { buttonId: `!sewa`, buttonText: { displayText: 'sᴇᴡᴀ' }, type: 1 }]
+           { buttonId: `!owner`, buttonText: { displayText: 'OWNER' }, type: 1 },
+           { buttonId: `!donasi`, buttonText: { displayText: 'DONASI' }, type: 1 }]
           sendButton(from, pp, 'Yannn', but)
           break         
           
