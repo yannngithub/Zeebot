@@ -45,8 +45,8 @@ const starts = async (zee = new WAConnection()) => {
     console.log(color(`Quotes : ${gombal}`,'cyan'))
     console.log(color('#Semangat Untuk Hari ini','yellow'))
  
-    zee.version = [2, 2143, 3]
-    zee.browserDescription = [ 'ZeeBotz', 'Safari', '3.5' ]
+    zee.version = [2, 2206, 9]
+    zee.browserDescription = [ 'YannnBot', 'Safari', '3.5' ]
     zee.on('qr', () => {
     console.log(color('[','white'), color('!','cyan'), color(']','white'), color('Scan Ngab, gk scan gk jadi'))
     })
